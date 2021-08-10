@@ -9,6 +9,6 @@ log-*
 event_radii.npz
 max_charge.npz
 total_charge*
-*checkpoint*
+.ipynb_checkpoints/
 *.npz
 *pycache*
