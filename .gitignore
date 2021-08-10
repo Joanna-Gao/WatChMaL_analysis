@@ -5,3 +5,10 @@ performance_analysis_data/
 filtered_indices_data/
 full_tank_performance_analysis_data/
 testing/
+log-*
+event_radii.npz
+max_charge.npz
+total_charge*
+*checkpoint*
+*.npz
+*pycache*
