@@ -5,3 +5,4 @@ performance_analysis_data/
 filtered_indices_data/
 full_tank_performance_analysis_data/
 testing/
+*.npz
