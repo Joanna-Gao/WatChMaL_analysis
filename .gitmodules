@@ -1,4 +1,4 @@
 [submodule "WatChMaL"]
 	path = WatChMaL
-	url = https://github.com/WatChMaL/WatChMaL.git
-	branch = analysis_branch
+	url = https://github.com/Joanna-Gao/WatChMaL.git
+	branch = hybridHK_branch
