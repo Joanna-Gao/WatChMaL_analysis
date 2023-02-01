@@ -12,3 +12,4 @@ total_charge*
 .ipynb_checkpoints/
 *.npz
 *pycache*
+*.png
