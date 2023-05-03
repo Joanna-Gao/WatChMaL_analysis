@@ -5,9 +5,9 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.2
+#       jupytext_version: 1.14.4
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -20,7 +20,9 @@ import h5py
 import itertools
 from functools import reduce
 
-from progressbar import *
+# +
+# from progressbar import *
+# -
 
 from sklearn.metrics import roc_curve, auc
 from sklearn.utils.extmath import stable_cumsum
