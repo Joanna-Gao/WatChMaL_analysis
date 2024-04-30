@@ -114,7 +114,7 @@ def plot_compare_dists(dists,
     plt.close()    
 
     if axes is None:
-        fig, axes = plt.subplots(2,1,figsize=(12,12), facecolor='w')
+        fig, axes = plt.subplots(2,1,figsize=(12,16), facecolor='w')
         ret = True
     axes = axes.flatten()
 
@@ -152,12 +152,12 @@ def plot_compare_dists(dists,
     if xrange is not None: 
         ax.set_xlim(xrange)
 
-    ax.legend(loc=loc)
+    ax.legend(loc=loc, fontsize=14)
 
     if title is not None:
         if normalized:
-            title = title + ' (Normalized)'
-        ax.set_title(title)
+            title = title + ' (Normalised)'
+#         ax.set_title(title)
     
     # Plot Ratio histogram
     ax2 = axes[1]
@@ -175,29 +175,33 @@ def plot_compare_dists(dists,
     if xrange is not None: 
         ax2.set_xlim(xrange)
 
-    ax2.legend()
+    ax2.legend(fontsize=14)
     ax2.set_title('Ratio of Distributions')
     lines = ax2.plot(plot_bins[:-1],np.ones(len(plot_bins)-1),color='k',alpha=0.5)
     lines[0].set_linestyle('-.')
 
     ax.set_xscale(xscale)
-    ax.set_yscale(yscale)   
+    ax.set_yscale(yscale)  
 
     ax2.set_xscale(xscale)  
 
     if xlabel is not None: 
-        ax.set_xlabel(xlabel)
-        ax2.set_xlabel(xlabel)
+        ax.set_xlabel(xlabel, fontsize=18)
+        ax2.set_xlabel(xlabel, fontsize=18)
     
     ylabel = 'Count'
 
     if yscale == 'log':
         ylabel = ylabel + ' (log scale)'
     if normalized:
-        ylabel = ylabel + ' (Normalized)'
+        ylabel = ylabel + ' (Normalised)'
     
-    ax.set_ylabel(ylabel)
+    ax.set_ylabel(ylabel, fontsize=18)
 
+    ax.tick_params(labelsize=14)
+    ax2.tick_params(labelsize=14)
+#     plt.savefig(f'plots/{title.replace(" ", "_")}.png')
+    
     if ret: return fig
 
 
@@ -310,7 +314,7 @@ def plot_computed_dists(dists,
     if yscale == 'log':
         ylabel = ylabel + ' (log scale)'
     if normalized:
-        ylabel = ylabel + ' (Normalized)'
+        ylabel = ylabel + ' (Normalised)'
 
     ax.set_ylabel(ylabel)
 
@@ -583,16 +587,14 @@ def plot_2d_ratio(dist_1_x,dist_1_y,dist_2_x, dist_2_y,bins=(150,150),fig=None,a
     ratio = np.where((ns_2==0) & (ns_1==0),1,ratio)
     ratio = np.where((ns_2==0) & (ns_1!=0),10,ratio)
     pc = ax.pcolormesh(xedges, yedges, np.swapaxes(ratio,0,1),vmin=ratio_range[0],vmax=ratio_range[1],cmap="RdBu_r")
-    fig.colorbar(pc, ax=ax)
+    cbar = fig.colorbar(pc, ax=ax)
+    cbar.ax.tick_params(labelsize=14)
     if title is not None: ax.set_title(title)
-    if xlabel is not None: ax.set_xlabel(xlabel)
-    if ylabel is not None: ax.set_ylabel(ylabel)
+    if xlabel is not None: ax.set_xlabel(xlabel, fontsize=14)
+    if ylabel is not None: ax.set_ylabel(ylabel, fontsize=14)
+    ax.tick_params(labelsize=10)
     return fig
 
-
-a = np.ones((100,100))
-
-[i for i in itertools.product(range(3),range(3))]
 
 def binary_clf_curve(y_true, y_score, pos_label=None, sample_weight=None):
     '''
@@ -871,7 +873,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
                         linestyle=linestyle[i],linewidth=2)    
             ax.legend(loc=legend_locs[0] if legend_locs is not None else 'best', fontsize=legend_size)
             ax.set_xlabel('e-muon nLL Difference')
-            ax.set_ylabel('Normalized Density' if density else 'N Events', fontsize=label_size)
+            ax.set_ylabel('Normalised Density' if density else 'N Events', fontsize=label_size)
             # ax.set_yscale('log')
     else:
         for output_idx,ax in enumerate(axes[:-1]):
@@ -882,7 +884,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
                         linestyle=linestyle[i],linewidth=2)            
             ax.legend(loc=legend_locs[output_idx] if legend_locs is not None else 'best', fontsize=legend_size)
             ax.set_xlabel('P({})'.format(legend_label_dict[label_dict[output_idx]]), fontsize=label_size)
-            ax.set_ylabel('Normalized Density', fontsize=label_size)
+            ax.set_ylabel('Normalised Density', fontsize=label_size)
             ax.set_yscale('log')
         ax = axes[-1]
         for i in [index_dict[particle_name] for particle_name in particle_names[-1]]:
@@ -892,7 +894,7 @@ def plot_response(softmaxes, labels, particle_names, index_dict,linestyle=None,b
                         linestyle=linestyle[i],linewidth=2)         
         ax.legend(loc=legend_locs[-1] if legend_locs is not None else 'best', fontsize=legend_size)
         ax.set_xlabel('P({}) + P({})'.format(legend_label_dict['gamma'],legend_label_dict['e']), fontsize=label_size)
-        ax.set_ylabel('Normalized Density', fontsize=label_size)
+        ax.set_ylabel('Normalised Density', fontsize=label_size)
         ax.set_yscale('log')
     plt.tight_layout()
     return fig
@@ -1051,3 +1053,5 @@ def collapse_test_output(softmaxes, labels, index_dict,predictions=None,ignore_t
 
 def compute_momenta(total_energy, particle_mass):
     return np.sqrt(total_energy**2 - particle_mass**2)
+
+
